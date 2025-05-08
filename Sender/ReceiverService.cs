@@ -11,7 +11,7 @@ namespace Sender
             var client = new UdpClient(6000);
 
 
-            logger.LogInformation("Starting receiver on {port}", client.Client.LocalEndPoint);
+            logger.LogInformation("Starting echo receiver on {port}", client.Client.LocalEndPoint);
 
             while (!stoppingToken.IsCancellationRequested)
             {
