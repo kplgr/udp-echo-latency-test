@@ -4,16 +4,13 @@ using System.Net.Sockets;
 
 namespace Sender
 {
-    internal class ReceiverService(ILogger<ReceiverService> logger) : BackgroundService
+    internal class ReceiverService(ILogger<ReceiverService> logger, UdpClient client) : BackgroundService
     {
+        private readonly UdpClient client = client;
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            int port = 6000;
-
-            var client = new UdpClient(port);
-
-
-            logger.LogInformation("Starting receiver on port {port}", port);
+            logger.LogInformation("Starting receiver on {port}", client.Client.LocalEndPoint);
 
             while (!stoppingToken.IsCancellationRequested)
             {

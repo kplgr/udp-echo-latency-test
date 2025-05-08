@@ -10,6 +10,8 @@ namespace Sender
         {
             var builder = Host.CreateApplicationBuilder(args);
 
+            builder.Services.AddSingleton(new UdpClient("10.85.112.10", 6000));
+
             builder.Services.AddHostedService<SenderService>();
             builder.Services.AddHostedService<ReceiverService>();
 
