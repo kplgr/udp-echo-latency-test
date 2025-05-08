@@ -13,7 +13,7 @@ namespace Echo
             int listenPort = 6000;
             int replyPort = 6000;
 
-            var client = new UdpClient();
+            var client = new UdpClient(listenPort);
 
             logger.LogInformation("Starting echo server, listening on port {port}", listenPort);
 
