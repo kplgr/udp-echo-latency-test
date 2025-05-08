@@ -15,6 +15,7 @@ namespace Echo
 
             var client = new UdpClient(port);
 
+            logger.LogInformation("Starting echo server, listening on port {port}", port);
 
             while (!stoppingToken.IsCancellationRequested)
             {

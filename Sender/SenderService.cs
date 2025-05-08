@@ -28,6 +28,8 @@ namespace Sender
                 await client.SendAsync(BitConverter.GetBytes(now));
 
 
+                logger.LogInformation("Pinging...");
+
                 Thread.Sleep(1000); // Simulate work
             }
         }
