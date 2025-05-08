@@ -10,12 +10,12 @@ namespace Echo
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            int port = 6000;
+            int listenPort = 6000;
+            int replyPort = 6000;
 
+            var client = new UdpClient();
 
-            var client = new UdpClient(port);
-
-            logger.LogInformation("Starting echo server, listening on port {port}", port);
+            logger.LogInformation("Starting echo server, listening on port {port}", listenPort);
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -36,9 +36,12 @@ namespace Echo
 
 
 
-                client.Send(messageContent, messageContent.Length, result.RemoteEndPoint);
+                var responseEndpoint = result.RemoteEndPoint;
+                responseEndpoint.Port = replyPort;
 
-                logger.LogInformation("Received message from {address} @ {port} and sent back the echo", result.RemoteEndPoint.Address, result.RemoteEndPoint.Port);
+                client.Send(messageContent, messageContent.Length, responseEndpoint);
+
+                logger.LogInformation("Received message from {receiveEndpoint} and sent back the echo to {responseEndpoint}", result.RemoteEndPoint, responseEndpoint);
             }
         }
     }
