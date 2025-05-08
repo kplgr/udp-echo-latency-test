@@ -4,14 +4,14 @@ using System.Net.Sockets;
 
 namespace Sender
 {
-    internal class SenderService(ILogger<SenderService> logger, UdpClient client) : BackgroundService
+    internal class SenderService(ILogger<SenderService> logger) : BackgroundService
     {
         private readonly ILogger<SenderService> logger = logger;
-        private readonly UdpClient client = client;
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-           
+
+            var client = new UdpClient("10.85.112.10", 6000);
 
             Thread.Sleep(5000);
 
